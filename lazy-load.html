@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Lazy Loading</title>
+  <script data-main="src/lazy-load/main" src="vendor/require.js"></script>
+</head>
+
+<body style="max-width: 920px; margin: 0 auto;">
+  <h1>Lazy Loading</h1>
+  <p>With the lazy loading approach, we have a set of options available for optimzing this code.
+  </p>
+  <ul>
+    <li>Bundle all modules into one file</li>
+    <li>Minfy each file and reques them when needed</li>
+  </ul>
+  <p>So, think about this in the context of ember engines, for example.
+    We will have our main bundle (the containing ember app), and an ember engine.
+    We can load the engine only when we need it. We will however, get the full
+    ember engine, even if we are using all of it for a given task. Think of it task
+    one kitchen sink loading another kitchen sink.
+  </p>
+</body>
+
+</html>

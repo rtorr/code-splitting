@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Code Splitting</title>
+  </head>
+  <body style="max-width: 920px; margin: 0 auto;">
+    <h1>Code Splitting</h1>
+    <p>Code splitting, to me, is a build time optimization. It is not merely
+      being able to lazy load a module when called. In this crappy example,
+      you can see that webpack "optimized" our build by sharing code from `/src/code-split/c.js`.
+    </p>
+
+    <p>Both main.js and a.js `import { test } from '.c'. Since since we know that `c` was loaded
+      from mainjs, a.js does not need to include c's code into its bundle.
+    </p>
+
+    <pre><code>
+      webpackJsonp([0],[
+      /* 0 */,
+      /* 1 */,
+      /* 2 */
+      /***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+      "use strict";
+      Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+      /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__c__ = __webpack_require__(1);
+      /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__d__ = __webpack_require__(4);
+      /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__d___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__d__);
+
+
+
+      console.log(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__c__["a" /* test */])());
+
+      console.log('a loaded');
+
+
+      /***/ }),
+      /* 3 */,
+      /* 4 */
+      /***/ (function(module, exports) {
+
+      console.log('d');
+
+      /***/ })
+      ]);
+    </code></pre>
+    <p>Notice because d is only used in `a.js`. Because of this, 'a.js' only a inclues it.
+      but calling <pre><code>`__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__c__["a" /* test */])()`</code></pre>
+      is not adding another http request to get the `test` function from 'c.js'.
+    </p>
+    <p>All of these features are dooable in other frameworks or tools, however, it will be a lot
+      of manual configuration.
+    </p>
+    <p>So unless your tool is doing these types of DX and optimizations, I dont think you are shipping
+      code splitting. You are shipping lazy loading.
+    </p>
+    <script src="dist/bundle.js"></script>
+  </body>
+</html>
